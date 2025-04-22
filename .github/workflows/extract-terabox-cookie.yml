@@ -5,6 +5,7 @@ on:
 
 jobs:
   extract-cookie:
+    name: Extract TeraBox Cookies
     runs-on: ubuntu-latest
 
     steps:
