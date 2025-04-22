@@ -29,9 +29,11 @@ jobs:
       - name: Run cookie extractor
         run: python extract_cookie.py
 
+      - name: List files for debugging
+        run: ls -la
+
       - name: Upload cookie.json
         uses: actions/upload-artifact@v3.1.2
         with:
           name: terabox-cookie
           path: cookie.json
-          
