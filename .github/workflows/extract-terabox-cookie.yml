@@ -1,0 +1,37 @@
+name: Extract TeraBox Cookies
+
+on:
+  workflow_dispatch:
+
+jobs:
+  extract-cookie:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium
+
+      - name: Save secrets to env
+        run: |
+          echo "EMAIL=${{ secrets.TERABOX_EMAIL }}" >> $GITHUB_ENV
+          echo "PASSWORD=${{ secrets.TERABOX_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Run cookie extractor
+        run: python extract_cookie.py
+
+      - name: Upload cookie.json
+        uses: actions/upload-artifact@v3
+        with:
+          name: terabox-cookie
+          path: cookie.json
+          
